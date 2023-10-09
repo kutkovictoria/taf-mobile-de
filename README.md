@@ -48,3 +48,93 @@
   "localized": "150.000 €"
   }
   }
+
+3.
+
+Отправляем запрос:
+
+- POST https://www.mobile.de/api/my/account
+- Хедер запроса:
+  x-mobile-client=de.mobile.cis
+- Тело (body) запроса
+  {
+  "email": "test@gmail.com",
+  "password": "1q@W3e4r",
+  "privacy": true,
+  "generalTermsApproved": true,
+  "privacySettings": [
+  "ALLOW_MARKET_RESEARCH",
+  "ALLOW_MARKETING_ACTIVITIES"
+  ]
+  }
+- Проверяем ответ
+  Status Code = 400
+  В теле
+  [
+  {
+  "field": "email",
+  "code": "account-exists",
+  "message": "Diese E-Mail-Adresse ist bereits registriert."
+  }
+  ]
+- Проверяем все поля на соответствие значений
+
+4.
+
+- Отправляем запрос: POST https://www.mobile.de/api/my/account
+  Хедер запроса
+  x-mobile-client=de.mobile.cis
+  Тело (body) запроса
+  {
+  "email": "",
+  "password": "1q@W3e4r",
+  "privacy": true,
+  "generalTermsApproved": true,
+  "privacySettings": [
+  "ALLOW_MARKET_RESEARCH",
+  "ALLOW_MARKETING_ACTIVITIES"
+  ]
+  }
+- Проверяем ответ: Status Code = 400
+  В теле
+  [
+  {
+  "field": "email",
+  "code": "email-empty",
+  "message": "Bitte geben Sie eine E-Mail-Adresse ein."
+  },
+  {
+  "field": "email",
+  "code": "email-invalid",
+  "message": "Die eingegebene E-Mail-Adresse ist ungültig."
+  }
+  ]
+- Проверяем все поля на соответствие значений
+
+5.
+
+- Отправляем запрос: POST https://www.mobile.de/api/my/account
+- Хедер запроса
+  x-mobile-client=de.mobile.cis
+- Тело (body) запроса
+  {
+  "email": "test1234523434@gmail.com",
+  "password": "",
+  "privacy": true,
+  "generalTermsApproved": true,
+  "privacySettings": [
+  "ALLOW_MARKET_RESEARCH",
+  "ALLOW_MARKETING_ACTIVITIES"
+  ]
+  }
+- Проверяем ответ
+  Status Code = 400
+  В теле
+  [
+  {
+  "field": "password",
+  "code": "password-empty",
+  "message": "Bitte gib ein Passtwort ein."
+  }
+  ]
+- Проверяем все поля на соответствие значений
